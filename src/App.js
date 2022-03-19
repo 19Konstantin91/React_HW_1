@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-function App() {
+
+export function App() {
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="App-header"> <h1>Message</h1></header>
+    </div>
+  );
+  
+};
+function Message(props) {
+  return (
+    <div className="Message">
+      <div className="Message-text">{props.text}</div>
+      <div className="Message-date">{formatDate(props.date)}</div>
     </div>
   );
 }
 
-export default App;
+function formatDate(date) {
+  return date.toLocaleString();
+}
+
+const message = {
+  text: 'Hello React!',
+  date: new Date(),
+};
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+    <Message
+        text={message.text}
+        date={message.date}
+      />
+  </React.StrictMode>,
+  document.getElementById('root')
+)
+
