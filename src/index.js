@@ -8,15 +8,15 @@ const MessageList = () => {
     const [messages, setmessages] = useState ([
         {
             author: "Bot",
-            message: "message1",
+            message: "message 1",
             date: new Date().toLocaleDateString(),
         },
     ]);
 
     const sendMessage = () => {
-        setmessages ([...messages,{author: "User", message : value}])
+        setmessages ([...messages, {author:"User", message : value}])
         setValue("")
-    };
+    }
 
     useEffect ( () => {
         const LastMessages = messages[messages.lenght -1];
@@ -57,10 +57,10 @@ const MessageList = () => {
     )
 };
 
-const App = () => {
+function App() {
     return (
         <>
-         <MessageList />
+            <MessageList />
         </>
     );
 }
