@@ -1,13 +1,14 @@
-import React, {useState, useEffect} from 'react';
 import ReactDOM from "react-dom";
+import React, {useState, useEffect} from 'react';
+
 
 import './index.css';
 
-const MessgeList = () => {
+const MessageList = () => {
     const [value, setValue] = useState ("");
     const [messages, setmessages] = useState ([
         {
-            authore: "Bot",
+            author: "Bot",
             message: "message1",
             date: new Date(). toLocaleDateString(),
         },
@@ -18,7 +19,7 @@ const MessgeList = () => {
     };
 
     useEffect ( () => {
-        const LastMessages = messages [massages.lenght -1];
+        const LastMessages = messages [messages.lenght -1];
         let timerId = null;
 
         if (messages.length && LastMessages.author == "User"){
@@ -48,7 +49,7 @@ const MessgeList = () => {
             {messages.map ((message) => (
                 <div>
                     <h2> {message.author} </h2>
-                    <p> {massage.message} </p>
+                    <p> {message.message} </p>
                     <hr />
                 </div>    
             ))}
@@ -59,14 +60,12 @@ const MessgeList = () => {
 const App = () => {
     return (
         <>
-         <MessgeList />
+         <MessageList />
         </>
     );
 },
 
 ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
+    <App />,
     document.getElementById("root")
   );
