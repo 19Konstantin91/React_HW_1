@@ -14,8 +14,9 @@ const MessageList = () => {
         },
     ]);
 
-    const sendMessage =() => {
+    const sendMessage = () => {
         setmessages ([...messages,{author: "User", message : value}])
+        setValue("")
     };
 
     useEffect ( () => {
@@ -29,7 +30,7 @@ const MessageList = () => {
                     {author: "Bot", message: "Hello from bot"},
                 ]);
             }, 1500);
-        };
+        }
 
         return () => {
             clearInterval (timerId);
