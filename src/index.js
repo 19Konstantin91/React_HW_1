@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
 import './index.css';
 
@@ -50,11 +50,11 @@ const MessgeList = () => {
                     <h2> {message.author} </h2>
                     <p> {massage.message} </p>
                     <hr />
-                <div />    
+                </div>    
             ))}
         </div>
     )
-},
+};
 
 const App = () => {
     return (
@@ -66,7 +66,7 @@ const App = () => {
 
 ReactDOM.render(
     <React.StrictMode>
-        <App />
+      <App />
     </React.StrictMode>,
-    document.getElementbyId("root")
-),
+    document.getElementById("root")
+  );
