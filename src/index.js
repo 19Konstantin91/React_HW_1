@@ -1,7 +1,6 @@
 import ReactDOM from "react-dom";
 import React, {useState, useEffect} from 'react';
 
-
 import './index.css';
 
 const MessageList = () => {
@@ -10,7 +9,7 @@ const MessageList = () => {
         {
             author: "Bot",
             message: "message1",
-            date: new Date(). toLocaleDateString(),
+            date: new Date().toLocaleDateString(),
         },
     ]);
 
@@ -20,10 +19,10 @@ const MessageList = () => {
     };
 
     useEffect ( () => {
-        const LastMessages = messages [messages.lenght -1];
+        const LastMessages = messages[messages.lenght -1];
         let timerId = null;
 
-        if (messages.length && LastMessages.author == "User"){
+        if (messages.length && LastMessages.author === "User"){
             timerId = setTimeout ( () => {
                 setmessages ([
                     ...messages,
@@ -64,9 +63,6 @@ const App = () => {
          <MessageList />
         </>
     );
-},
+}
 
-ReactDOM.render(
-    <App />,
-    document.getElementById("root")
-  );
+ReactDOM.render(<App />, document.getElementById("root"));
