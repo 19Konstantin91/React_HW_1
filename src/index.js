@@ -5,37 +5,34 @@ import './index.css';
 
 const MessageList = () => {
     const [value, setValue] = useState ("");
-    const [messages, setmessages] = useState ([
+    const [messages, setMessages] = useState ([
         {
             author: "Bot",
-            message: "message 1",
-            date: new Date().toLocaleDateString(),
+            message: "Hello!",
+            date: new Date().toLocaleString(),
         },
     ]);
 
     const sendMessage = () => {
-        setmessages ([...messages, {author:"User", message : value}])
-        setValue("")
+        setMessages ([...messages, {author:"User", message : value, date: new Date().toLocaleString(),}])
+        setValue("");
     }
 
     useEffect ( () => {
         const LastMessages = messages[messages.lenght -1];
         let timerId = null;
-
+////////Вопрос остался без ответа, где ошибка?////////
         if (messages.length && LastMessages.author === "User"){
-            timerId = setTimeout ( () => {
-                setmessages ([
-                    ...messages,
-                    {author: "Bot", message: "Hello from bot"},
+            timerId = setTimeout (() => {
+                setMessages ([...messages, {author: "Bot", message: "Hello from bot"},
                 ]);
             }, 1500);
         }
-
+////////.....................................////////
         return () => {
             clearInterval (timerId);
         };
     }, [messages]);
-
 
     return (
         <div>
@@ -50,6 +47,7 @@ const MessageList = () => {
                 <div>
                     <h2> {message.author} </h2>
                     <p> {message.message} </p>
+                    <p> {message.date}</p>
                     <hr />
                 </div>    
             ))}
