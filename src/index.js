@@ -18,26 +18,25 @@ const MessageList = () => {
         setValue("");
     }
 
-    useEffect ( () => {
-        const LastMessages = messages[messages.lenght -1];
-        let timerId = null;
-////////Вопрос остался без ответа, где ошибка?////////
-        if (messages.length && LastMessages.author === "User"){
-            timerId = setTimeout (() => {
-                setMessages ([...messages, {author: "Bot", message: "Hello from bot"},
+        useEffect(() => {
+            const LastMessages = messages[messages.length -1];
+            let timerId = null;
+
+            if (messages.length && LastMessages.author === "User") {
+            timerId = setTimeout(() => {setMessages([...messages,{author: "Bot",message: "hello from bot",},
                 ]);
             }, 1500);
-        }
-////////.....................................////////
-        return () => {
+            }
+
+            return () => {
             clearInterval (timerId);
         };
-    }, [messages]);
+        }, [messages]);
 
     return (
-        <div>
+        <div className="container">
             <input
-            placeholder='введите сообщение...'
+            placeholder='введите сообщение'
             value = {value}
             onChange = {(event) => setValue (event.target.value)}
             />
