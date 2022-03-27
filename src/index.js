@@ -14,9 +14,11 @@ const MessageList = () => {
     ]);
 
     const sendMessage = () => {
-        setMessages ([...messages, {author:"User", message : value, date: new Date().toLocaleString(),}])
-        setValue("");
-    }
+        if (value) {
+            setMessages([...messages, { author: "User", value, date: new Date().toLocaleString(), message: value}]);
+            setValue("");
+        }
+    };
 
         useEffect(() => {
             const LastMessages = messages[messages.length -1];
