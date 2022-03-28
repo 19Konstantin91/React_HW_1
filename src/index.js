@@ -1,17 +1,67 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
+import React, {useState, useEffect} from 'react';
+
 import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+const MessageList = () => {
+    const [value, setValue] = useState ("");
+    const [messages, setMessages] = useState ([
+        {
+            author: "Bot",
+            message: "Hello!",
+            date: new Date().toLocaleString(),
+        },
+    ]);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    const sendMessage = () => {
+        if (value) {
+            setMessages([...messages, { author: "User", value, date: new Date().toLocaleString(), message: value}]);
+            setValue("");
+        }
+    };
+
+        useEffect(() => {
+            const LastMessages = messages[messages.length -1];
+            let timerId = null;
+
+            if (messages.length && LastMessages.author === "User") {
+            timerId = setTimeout(() => {setMessages([...messages,{author: "Bot",message: "hello from bot",},
+                ]);
+            }, 1500);
+            }
+
+            return () => {
+            clearInterval (timerId);
+        };
+        }, [messages]);
+
+    return (
+        <div className="container">
+            <input
+            placeholder='введите сообщение'
+            value = {value}
+            onChange = {(event) => setValue (event.target.value)}
+            />
+            <button onClick = {sendMessage}>send message</button>
+            <hr />
+            {messages.map ((message) => (
+                <div>
+                    <h2> {message.author} </h2>
+                    <p> {message.message} </p>
+                    <p> {message.date}</p>
+                    <hr />
+                </div>    
+            ))}
+        </div>
+    )
+};
+
+function App() {
+    return (
+        <>
+            <MessageList />
+        </>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById("root"));
