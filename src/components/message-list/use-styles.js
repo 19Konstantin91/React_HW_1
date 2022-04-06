@@ -1,5 +1,3 @@
-
-// import { NoEncryption } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
 
 export const useStyles = makeStyles (() => {

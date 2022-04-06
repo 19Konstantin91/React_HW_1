@@ -1,7 +1,6 @@
 import { ListItem, ListItemButton, ListItemText } from "@mui/material";
 import { AccountCircle } from "@mui/icons-material";
 import { makeStyles } from "@mui/styles";
-// import st from "./chat.module.css";
 
 const useStyles = makeStyles((ctx) => {
 
