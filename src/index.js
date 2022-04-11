@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom";
+import React  from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { MessageList, Layout, Header, ChatList } from "./components";
+import { ProfilePage, ChatPage } from "./pages";
+
+import './global.css';
+
+
+
+// const App = () => {
+//     return (
+//       <>
+//         <Layout
+//           messages={<MessageList />}
+//           chats={<ChatList />}
+//           header={<Header />}
+//         />
+//       </>
+//     );
+//   };
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+  <BrowserRouter>
+    <Header />
+    <Routes>
+      <Route path="/" element={<h1>Home page</h1>} />
+      <Route path="/profile" element={<ProfilePage />} />
+      <Route path="/chat/*" element={<ChatPage />} />
+      <Route path="*" element={<h1>404 page</h1>} />
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+    </Routes>
+  </BrowserRouter>,
+ document.getElementById("root"));
