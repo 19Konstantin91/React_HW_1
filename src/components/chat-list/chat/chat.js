@@ -7,6 +7,7 @@ const useStyles = makeStyles((ctx) => {
   return {
     item: {
       "&.Mui-selected": {
+        borderRadius: "10px",
         backgroundColor: "#cca525",
       },
       "&.Mui-selected:hover": {
@@ -16,12 +17,11 @@ const useStyles = makeStyles((ctx) => {
   };
 });
 
-export function Chat({ title, selected, handleListItemClick }) {
+export function Chat({ title, selected}) {
   const styles = useStyles();
 
   return (
     <ListItemButton
-      onClick={handleListItemClick}
       className={styles.item}
       selected={selected}
     >

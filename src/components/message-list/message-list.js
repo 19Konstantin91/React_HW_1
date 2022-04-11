@@ -1,21 +1,25 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Input, InputAdornment } from "@mui/material";
 import { useStyles } from "./use-styles";
 import { Keyboard } from "@mui/icons-material";
 import { Send } from "@mui/icons-material";
 import { Message } from "./message";
+import { useParams } from "react-router-dom";
 
 export const MessageList = () => {
   const ref = useRef();
+  const { roomId } = useParams();
 
   const [value, setValue] = useState("");
-  const [messages, setMessages] = useState([
-    {
-      author: "Bot",
-      message: "Hello!",
-      date: new Date().toLocaleString(),
-    },
-  ]);
+  const [messageList, setMessageList] = useState({
+    room1: [
+      {
+        author: "Bot",
+        message: "Hello from Bot!",
+        date: new Date().toLocaleString(),
+      },
+    ],
+  });
 
   const styles = useStyles();
 
@@ -23,54 +27,56 @@ export const MessageList = () => {
     if (ref.current) {
       ref.current.scrollTo(0, ref.current.scrollHeight);
     }
-  }, [messages]);
+  }, [messageList]);
 
-  const sendMessage = () => {
-    if (value) {
-      setMessages([
-        ...messages,
-        {
-          author: "User",
-          date: new Date().toLocaleString(),
-          message: value,
-        },
-      ]);
-      setValue("");
-    }
-  };
+  const sendMessage = useCallback(
+    (message, author = "User") => {
+      if (message) {
+        setMessageList({
+          ...messageList,
+          [roomId]: [
+            ...(messageList[roomId] ?? []),
+            {
+              author,
+              message,
+              date: new Date().toLocaleString(),
+            },
+          ],
+        });
+        setValue("");
+      }
+    },
+    [messageList, roomId]
+  );
 
   const handlePressInput = ({ code }) => {
     if (code === "Enter") {
-      sendMessage();
+      sendMessage(value);
     }
   };
 
   useEffect(() => {
-    const LastMessages = messages[messages.length - 1];
+    const messages = messageList[roomId] ?? [];
+    const lastMessage = messages[messages.length - 1];
     let timerId = null;
 
-    if (messages.length && LastMessages.author === "User") {
+    if (messages.length && lastMessage.author === "User") {
       timerId = setTimeout(() => {
-        setMessages([
-          ...messages,
-          { author: "Bot", message: "I heard you!" },
-        ]);
+        sendMessage("Hello from Bot", "Bot");
       }, 1500);
     }
 
     return () => {
       clearInterval(timerId);
     };
-  }, [messages]);
+  }, [messageList, roomId, sendMessage]);
 
+  const messages = messageList[roomId] ?? [];
   return (
     <>
       <div ref={ref}>
         {messages.map((message, index) => (
-          <Message 
-          message={message}
-          key={index}
-          />
+          <Message message={message} key={message.date} />
         ))}
       </div>
       <Input
@@ -83,7 +89,9 @@ export const MessageList = () => {
         fullWidth
         endAdornment={
           <InputAdornment position="end">
-            {value && <Send className="iconSend" onClick={sendMessage} />}
+            {value && (
+              <Send className="iconSend" onClick={() => sendMessage(value)} />
+            )}
           </InputAdornment>
         }
         startAdornment={

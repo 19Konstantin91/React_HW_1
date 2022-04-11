@@ -23,8 +23,9 @@
   .chats {
     overflow-y: auto;
     width: 20%;
+    padding: 10px;
     background-color: #ccbb25;
-    border-right: 1px solid #000;
+    border-right: 1px solid rgb(126, 0, 0);
   }
   
   .messages {

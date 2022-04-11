@@ -127,7 +127,7 @@ table {
 #root,
 body,
 html {
-  height: 100%;
+  height: calc(100% - 24px);
 }
 
 ::-webkit-scrollbar {
