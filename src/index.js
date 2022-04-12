@@ -1,34 +1,24 @@
 import ReactDOM from "react-dom";
-import React  from 'react';
+import React from "react";
+import { Provider } from "react-redux";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { MessageList, Layout, Header, ChatList } from "./components";
+import { Header } from "./components";
 import { ProfilePage, ChatPage } from "./pages";
+import { store } from "./store";
 
-import './global.css';
-
-
-
-// const App = () => {
-//     return (
-//       <>
-//         <Layout
-//           messages={<MessageList />}
-//           chats={<ChatList />}
-//           header={<Header />}
-//         />
-//       </>
-//     );
-//   };
+import "./global.css";
 
 ReactDOM.render(
-  <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route path="/" element={<h1>Home page</h1>} />
-      <Route path="/profile" element={<ProfilePage />} />
-      <Route path="/chat/*" element={<ChatPage />} />
-      <Route path="*" element={<h1>404 page</h1>} />
-
-    </Routes>
-  </BrowserRouter>,
- document.getElementById("root"));
+  <Provider store={store}>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<h1>Home page</h1>} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/chat/*" element={<ChatPage />} />
+        <Route path="*" element={<h1>404 page</h1>} />
+      </Routes>
+    </BrowserRouter>
+  </Provider>,
+  document.getElementById("root")
+);
