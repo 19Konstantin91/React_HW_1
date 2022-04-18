@@ -42,7 +42,9 @@ export function ChatList() {
       </Button>
 
       {conversations.map((chat, index) => (
-        <div key={index} style={{ display: "flex"}}>
+        <div 
+        key={index} 
+        style={{ display: "flex"}}>
           <Button 
           className={styles.buttonDelete}
           onClick={ () => deleteCon(chat)}>

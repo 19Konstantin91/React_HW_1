@@ -1,9 +1,6 @@
-import { UPDATE_PROFILE, TOGGLE_VISIBLE_PROFILE } from "./types";
+import { SEND_MESSAGE,} from "./types";
 
-export const updateProfile = (profile) => {
-  return { type: UPDATE_PROFILE, payload: profile };
+export const sendMessage = (roomId, message) => {
+  return { type: SEND_MESSAGE, payload: {roomId, message}};
 };
 
-export const toggleVisibleProfile = () => {
-  return { type: TOGGLE_VISIBLE_PROFILE };
-};

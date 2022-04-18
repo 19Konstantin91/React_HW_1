@@ -1,19 +1,30 @@
-import { UPDATE_PROFILE, TOGGLE_VISIBLE_PROFILE } from "./types";
+import { SEND_MESSAGE } from "./types";
 
 const initialState = {
-  isVisibleProfile: true,
-  firstName: "firstName",
-  lastName: "lastName",
-  role: "admon",
-  phone: "+79123456789"
+  messages: {
+    room1: [
+      {
+        author: "Bot",
+        message: "Hello from Bot!",
+        date: new Date().toLocaleString(),
+      },
+    ],
+  },
 };
 
-export const profileReducer = (state = initialState, action) => {
+export const messagesReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_VISIBLE_PROFILE:
-      return { ...state, isVisibleProfile: !state.isVisibleProfile };
-    case UPDATE_PROFILE:
-      return { ...state, ...action.payload };  
+    case SEND_MESSAGE:
+      return {
+        ...state,
+        messages: {
+          ...state.messages,
+          [action.payload.roomId]: [
+            ...(state.messages[action.payload.roomId] ?? []),
+            { ...action.payload.message, date: new Date().toLocaleString() },
+          ],
+        },
+      };
     default:
       return state;
   }
