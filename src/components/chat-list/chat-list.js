@@ -11,8 +11,8 @@ import ClearIcon from '@mui/icons-material/Clear';
 
 export function ChatList() {
   const { roomId } = useParams();
-  const dispatch = useDispatch;
-  const navigate = useNavigate;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const conversations = useSelector(
     (state) => state.conversations.conversations
