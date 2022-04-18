@@ -14,6 +14,11 @@ const useStyles = makeStyles((ctx) => {
         backgroundColor: "#cc8425",
       },
     },
+    acc: {
+      "&.MuiListItem-root": {
+        width: "auto",
+      }
+    }
   };
 });
 
@@ -25,8 +30,11 @@ export function Chat({ title, selected}) {
       className={styles.item}
       selected={selected}
     >
-      <ListItem>
-        <AccountCircle fontSize="large" />
+      <ListItem
+      className={styles.acc}
+      >
+        <AccountCircle
+        fontSize="large"/>
       </ListItem>
       <ListItemText primary={title} />
     </ListItemButton>
