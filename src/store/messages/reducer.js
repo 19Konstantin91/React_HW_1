@@ -1,4 +1,4 @@
-import { SEND_MESSAGE, DELETE_MESSAGE  } from "./types";
+import { SEND_MESSAGE, DELETE_MESSAGE } from "./types";
 import { nanoid } from "nanoid";
 
 const initialState = {
@@ -23,7 +23,11 @@ export const messagesReducer = (state = initialState, action) => {
           ...state.messages,
           [action.payload.roomId]: [
             ...(state.messages[action.payload.roomId] ?? []),
-            { ...action.payload.message, date: new Date().toLocaleString(),  id: nanoid() },
+            {
+              ...action.payload.message,
+              date: new Date().toLocaleString(),
+              id: nanoid(),
+            },
           ],
         },
       };

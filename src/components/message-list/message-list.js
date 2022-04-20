@@ -6,7 +6,7 @@ import { Send } from "@mui/icons-material";
 import { Message } from "./message";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { send, sendMessage } from "../../store/messages";
+import {sendMessage } from "../../store/messages";
 
 export const MessageList = () => {
   const ref = useRef();
@@ -65,7 +65,7 @@ export const MessageList = () => {
     <>
       <div ref={ref}>
         {messages.map((message, index) => (
-          <Message message={message} key={message.date} />
+          <Message message={message} key={message.date} roomId={roomId} />
         ))}
       </div>
       <Input

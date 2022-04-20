@@ -1,12 +1,12 @@
-import cls from "classnames";
 import { useDispatch } from "react-redux";
 import { Button} from "@mui/material";
 import { deleteMessage } from "../../../store/messages";
 import stylesMod from "./message.module.css";
 import ClearIcon from '@mui/icons-material/Clear';
 import { useStyles } from "./use-styles";
+import cls from "classnames";
 
-export const Message =({ message, roomId, children }) => {
+export const Message =({ message, children, roomId }) => {
   const dispatch = useDispatch();
 
   const styles = useStyles();
@@ -25,7 +25,7 @@ export const Message =({ message, roomId, children }) => {
       </div>
       
       <Button
-      onClick={() => dispatch(deleteMessage(roomId, message?.id))}
+      onClick={() => dispatch(deleteMessage(roomId, message.id))}
       className={styles.buttonDelete}
       >
         <ClearIcon 
