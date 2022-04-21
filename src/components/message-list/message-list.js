@@ -7,6 +7,7 @@ import { Message } from "./message";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {sendMessage } from "../../store/messages";
+import { usePrevios } from "../../hooks/use-previos";
 
 export const MessageList = () => {
   const ref = useRef();
@@ -17,6 +18,8 @@ export const MessageList = () => {
   const messages = useSelector ((state) => {
     return state.messages.messages[roomId] ?? []
   });
+
+  const previosMessagesLength = usePrevios(messages.length)
 
   const [value, setValue] = useState("");
   
@@ -50,7 +53,7 @@ export const MessageList = () => {
     const lastMessage = messages[messages.length - 1];
     let timerId = null;
 
-    if (messages.length && lastMessage.author === "User") {
+    if (messages.length > previosMessagesLength && lastMessage.author === "User") {
       timerId = setTimeout(() => {
         send("Hello from Bot", "Bot");
       }, 1500);
@@ -65,7 +68,7 @@ export const MessageList = () => {
     <>
       <div ref={ref}>
         {messages.map((message, index) => (
-          <Message message={message} key={message.date} roomId={roomId} />
+          <Message message={message} key={message.id} roomId={roomId} />
         ))}
       </div>
       <Input
