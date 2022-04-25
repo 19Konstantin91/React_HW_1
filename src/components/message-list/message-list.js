@@ -6,8 +6,8 @@ import { Send } from "@mui/icons-material";
 import { Message } from "./message";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {sendMessage } from "../../store/messages";
-import { usePrevios } from "../../hooks/use-previos";
+import {sendMessageWithBot } from "../../store/messages";
+// import { usePrevios } from "../../hooks/use-previos";
 
 export const MessageList = () => {
   const ref = useRef();
@@ -19,7 +19,7 @@ export const MessageList = () => {
     return state.messages.messages[roomId] ?? []
   });
 
-  const previosMessagesLength = usePrevios(messages.length)
+  // const previosMessagesLength = usePrevios(messages.length)
 
   const [value, setValue] = useState("");
   
@@ -35,7 +35,7 @@ export const MessageList = () => {
   const send = useCallback(
     (message, author = "User") => {
       if (message) {
-        dispatch(sendMessage(roomId, { author: author || " Bot", message}))
+        dispatch(sendMessageWithBot(roomId, { author: author || " Bot", message}))
         setValue("");
       }
     },
@@ -48,21 +48,21 @@ export const MessageList = () => {
     }
   };
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    const lastMessage = messages[messages.length - 1];
-    let timerId = null;
+  //   const lastMessage = messages[messages.length - 1];
+  //   let timerId = null;
 
-    if (messages.length > previosMessagesLength && lastMessage.author === "User") {
-      timerId = setTimeout(() => {
-        send("Hello from Bot", "Bot");
-      }, 1500);
-    }
+  //   if (messages.length > previosMessagesLength && lastMessage.author === "User") {
+  //     timerId = setTimeout(() => {
+  //       send("Hello from Bot", "Bot");
+  //     }, 1500);
+  //   }
 
-    return () => {
-      clearInterval(timerId);
-    };
-  }, [messages, roomId, send]);
+  //   return () => {
+  //     clearInterval(timerId);
+  //   };
+  // }, [messages, roomId, send]);
 
   return (
     <>

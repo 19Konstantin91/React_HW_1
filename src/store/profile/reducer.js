@@ -4,7 +4,7 @@ const initialState = {
   isVisibleProfile: true,
   firstName: "firstName",
   lastName: "lastName",
-  role: "admon",
+  role: "admin",
   phone: "+79123456789"
 };
 

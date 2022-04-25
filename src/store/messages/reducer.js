@@ -1,5 +1,6 @@
 import { SEND_MESSAGE, DELETE_MESSAGE } from "./types";
 import { nanoid } from "nanoid";
+import { DELETE_CONVERSATION } from "../types";
 
 const initialState = {
   messages: {
@@ -41,6 +42,27 @@ export const messagesReducer = (state = initialState, action) => {
           ),
         },
       };
+
+    case DELETE_CONVERSATION:
+
+      // delete state.messages[action.payload]
+
+      return {
+        ...state,
+        messages: Object.entries(state.messages).reduce(
+          (messages, [key, value]) => {
+            if (key === action.payload) {
+              return messages;
+            }
+
+            messages[key] = value;
+
+            return messages;
+          },
+          {}
+        ),
+      };
+
     default:
       return state;
   }
