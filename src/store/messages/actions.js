@@ -1,6 +1,6 @@
 import { SEND_MESSAGE, DELETE_MESSAGE} from "./types";
 
-export const sendMessage = (roomId, message) => () => {
+export const sendMessage = (roomId, message) => {
   return { type: SEND_MESSAGE, payload: {roomId, message}};
 };
 
