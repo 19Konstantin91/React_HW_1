@@ -6,8 +6,8 @@ import { logger, botMessage, crashReporter } from "./middlewares";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import { gistsReduser } from "./gists";
-import { getPublicGistsApi, searchGistsByNameApi } from "../api/gists";
+import { gistsReducer } from "./gists";
+import { getPublicGistsApi, searchGistsByNameApi } from "../API/gists";
 
 const persistConfig = {
   key: "root",
@@ -16,15 +16,15 @@ const persistConfig = {
   whitelist: ["profile"],
 };
 
-const reduser = combineReducers({
+const reducer = combineReducers({
   profile: profileReducer,
   conversations: conversationsReducer,
   messages: messagesReducer,
-  gists: gistsReduser,
+  gists: gistsReducer,
 });
 
 export const store = createStore(
-  persistReducer(persistConfig, reduser),
+  persistReducer(persistConfig, reducer),
 
   compose(
     applyMiddleware(

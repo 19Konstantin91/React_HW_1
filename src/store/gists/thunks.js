@@ -7,7 +7,7 @@ export const getGists = (page) => async (dispatch, _, api) => {
     const { data } = await api.getPublicGistsApi(page);
 
     dispatch(getGistsSucess(data));
-  } catch (e) {
-    dispatch(getGistsError(e));
+  } catch (error) {
+    dispatch(getGistsError(error));
   }
 };

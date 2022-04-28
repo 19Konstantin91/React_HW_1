@@ -21,4 +21,4 @@ class Request {
   };
 }
 
-export const recuest = new Request();
+export const request = new Request();
