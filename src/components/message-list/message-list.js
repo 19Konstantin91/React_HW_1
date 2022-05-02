@@ -7,7 +7,7 @@ import { Message } from "./message";
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {sendMessageWithBot } from "../../store/messages";
-// import { usePrevios } from "../../hooks/use-previos";
+import { usePrevios } from "../../hooks/use-previos";
 
 export const MessageList = () => {
   const ref = useRef();
@@ -19,7 +19,7 @@ export const MessageList = () => {
     return state.messages.messages[roomId] ?? []
   });
 
-  // const previosMessagesLength = usePrevios(messages.length)
+  const previosMessagesLength = usePrevios(messages.length)
 
   const [value, setValue] = useState("");
   
@@ -48,21 +48,21 @@ export const MessageList = () => {
     }
   };
 
-  // useEffect(() => {
+  useEffect(() => {
     
-  //   const lastMessage = messages[messages.length - 1];
-  //   let timerId = null;
+    const lastMessage = messages[messages.length - 1];
+    let timerId = null;
 
-  //   if (messages.length > previosMessagesLength && lastMessage.author === "User") {
-  //     timerId = setTimeout(() => {
-  //       send("Hello from Bot", "Bot");
-  //     }, 1500);
-  //   }
+    if (messages.length > previosMessagesLength && lastMessage.author === "User") {
+      timerId = setTimeout(() => {
+        send("Hello from Bot", "Bot");
+      }, 500);
+    }
 
-  //   return () => {
-  //     clearInterval(timerId);
-  //   };
-  // }, [messages, roomId, send]);
+    return () => {
+      clearInterval(timerId);
+    };
+  }, [messages, roomId, send]);
 
   return (
     <>

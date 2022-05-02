@@ -8,13 +8,15 @@ import {
   CREATE_MESSAGES_SUCCESS,
   CREATE_MESSAGES_ERROR,
 } from "./types";
-import { nanoid } from "nanoid";
 import { DELETE_CONVERSATION } from "../types";
 
 const initialState = {
   messages: {},
   pending: false,
   error: null,
+
+  pendingSendMessage: false,
+  errorSendMessage: null,
 };
 
 export const messagesReducer = (state = initialState, action) => {

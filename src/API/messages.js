@@ -1,5 +1,5 @@
 import { child, ref, get, push } from "firebase/database";
-import { database } from "./firibase";
+import { database } from "./firebase";
 
 export const createMessageApi = (message, roomId) => {
   return push(child(ref(database), `messages/${roomId}`), message);
