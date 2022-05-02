@@ -1,17 +1,97 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ReactDOM from "react-dom";
+import { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Header, PrivateRoute, PublicRoute } from "./components";
+import { ProfilePage, ChatPage, GistsPage, LoginPage, SignUpPage } from "./pages";
+import { store, persistor } from "./store";
+import { PersistGate } from "redux-persist/integration/react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./API/firebase";
+
+import "./global.css";
+
+const App = () => {
+  // @TODO перенести в redux
+  const [session, setSession] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      console.log("user", user);
+      if (user) {
+        setSession(user);
+      } else {
+        setSession(null);
+      }
+    });
+  }, []);
+
+  const isAuth = !!session;
+
+  return (
+    <Provider store={store}>
+      <PersistGate persistor={persistor}>
+          <BrowserRouter>
+            <Header session={isAuth} />
+
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <PrivateRoute isAuth={isAuth} to="/login">
+                    <h1>Home page</h1>
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/profile"
+                element={
+                  <PrivateRoute isAuth={isAuth}>
+                    <ProfilePage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/chat/*"
+                element={
+                  <PrivateRoute isAuth={isAuth}>
+                    <ChatPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/gists"
+                element={
+                  <PrivateRoute isAuth={isAuth}>
+                    <GistsPage />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/login"
+                element={
+                  <PublicRoute isAuth={isAuth}>
+                    <LoginPage />
+                  </PublicRoute>
+                }
+              />
+              <Route
+                path="/sign-up"
+                element={
+                  <PublicRoute isAuth={isAuth}>
+                    <SignUpPage />
+                  </PublicRoute>
+                }
+              />
+              <Route path="*" element={<h1>404 page</h1>} />
+            </Routes>
+          </BrowserRouter>
+      </PersistGate>
+    </Provider>
+  );
+};
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+    <App />,
+  document.getElementById("root")
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
