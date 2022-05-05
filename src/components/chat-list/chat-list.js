@@ -6,6 +6,7 @@ import { Chat } from "./chat";
 import {
   createConversation,
   deleteConversation,
+  createConversationFB,
 } from "../../store/conversations";
 import ClearIcon from '@mui/icons-material/Clear';
 
