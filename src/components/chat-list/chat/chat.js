@@ -29,6 +29,7 @@ export function Chat({ title, selected}) {
     <ListItemButton
       className={styles.item}
       selected={selected}
+      data-testid="wrapper"
     >
       <ListItem
       className={styles.acc}
